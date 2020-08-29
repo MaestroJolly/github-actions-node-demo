@@ -34,6 +34,9 @@ jobs:
     name: Push Docker image to GitHub Packages
     runs-on: ubuntu-latest
     steps:
+      - id: read-docker-image-identifiers
+        name: Read Docker Image Identifiers
+        run: echo ::set-env name=IMAGE_REPOSITORY::$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Push to GitHub Packages
@@ -42,5 +45,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: MaestroJolly/github-actions-node-demo/ga-node-image
+          repository: ${{ env.IMAGE_REPOSITORY }}/ga-node-image
           tag_with_ref: true
