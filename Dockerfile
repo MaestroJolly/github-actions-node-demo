@@ -1,4 +1,4 @@
-FROM node:14-apline
+FROM node:14-alpine
 WORKDIR  /usr/src
 COPY packages*json app.js ./
 RUN npm install
